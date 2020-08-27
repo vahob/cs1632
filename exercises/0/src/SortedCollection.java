@@ -51,7 +51,11 @@ public class SortedCollection {
 		// If any commandline argument is not a number, call showUsage() and return.
 		for(int i=0; i < args.length; i++)
 		{
-			
+			if(!collection.add(Integer.valueOf(args[i])))
+			{
+				showUsage();
+				return;
+			}
 		}
 		
 		System.out.print("sorted: ");
