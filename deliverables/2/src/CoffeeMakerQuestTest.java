@@ -236,6 +236,10 @@ public class CoffeeMakerQuestTest {
 	@Test
 	public void testProcessCommandS() {
 		// TODO
+		cmq.setCurrentRoom(room1);
+		//String ret = cmq.processCommand("s");
+		Assert.assertEquals(cmq.processCommand("s"),"A door in that direction does not exist.\n");
+		Assert.assertSame(cmq.getCurrentRoom(), room1);
 		
 	}
 	
@@ -250,7 +254,13 @@ public class CoffeeMakerQuestTest {
 	@Test
 	public void testProcessCommandDLose() {
 		// TODO
-		
+		Mockito.when(player.getInventoryString()).thenReturn("YOU HAVE NO COFFEE!\nYOU HAVE NO CREAM!\nYOU HAVE NO SUGAR!\n");
+		Mockito.when(player.checkCoffee()).thenReturn(false);
+		Mockito.when(player.checkCream()).thenReturn(false);
+		Mockito.when(player.checkSugar()).thenReturn(false);
+		String ret = "YOU HAVE NO COFFEE!\nYOU HAVE NO CREAM!\nYOU HAVE NO SUGAR!\n\nYou drink the air, as you have no coffee, sugar, or cream.\nThe air is invigorating, but not invigorating enough. You cannot study.\nYou lose!\n";
+		Assert.assertEquals(cmq.processCommand("D"), ret);
+		Assert.assertTrue(cmq.isGameOver());
 		
 	}
 	
@@ -265,7 +275,13 @@ public class CoffeeMakerQuestTest {
 	@Test
 	public void testProcessCommandDWin() {
 		// TODO
-		
+		Mockito.when(player.getInventoryString()).thenReturn("You have a cup of delicious coffee.\nYou have some fresh cream.\nYou have some tasty sugar.\n");
+		Mockito.when(player.checkCoffee()).thenReturn(true);
+		Mockito.when(player.checkCream()).thenReturn(true);
+		Mockito.when(player.checkSugar()).thenReturn(true);
+		String ret = "You have a cup of delicious coffee.\nYou have some fresh cream.\nYou have some tasty sugar.\n\nYou drink the beverage and are ready to study!\nYou win!\n";
+		Assert.assertEquals(cmq.processCommand("D"), ret);
+		Assert.assertTrue(cmq.isGameOver());
 		
 	}
 	
@@ -280,7 +296,13 @@ public class CoffeeMakerQuestTest {
 	 */
 	@Test
 	public void testProcessCommandDLoseWithPartialInventory() {
-		
+		Mockito.when(player.getInventoryString()).thenReturn("You have a cup of delicious coffee.\nYou have some fresh cream.\nYOU HAVE NO SUGAR!\n");
+		Mockito.when(player.checkCoffee()).thenReturn(true);
+		Mockito.when(player.checkCream()).thenReturn(true);
+		Mockito.when(player.checkSugar()).thenReturn(false);
+		String ret = "You have a cup of delicious coffee.\nYou have some fresh cream.\nYOU HAVE NO SUGAR!\n\nWithout sugar, the coffee is too bitter. You cannot study.\nYou lose!";
+		Assert.assertEquals(cmq.processCommand("D"), ret);
+		Assert.assertTrue(cmq.isGameOver());
 	}
 	
 }
