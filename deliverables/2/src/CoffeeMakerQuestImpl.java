@@ -174,6 +174,8 @@ public class CoffeeMakerQuestImpl implements CoffeeMakerQuest {
 		
 			Item i = curRoom.getItem();
 			player.addItem(i);
+			if(i.equals(Item.NONE))
+				return "You don't see anything out of the ordinary.\n";
 			String ret = "There might be something here...\nYou found some ";
 			String item = "";
 			
@@ -216,7 +218,7 @@ public class CoffeeMakerQuestImpl implements CoffeeMakerQuest {
 			"\nS - Go south"+
 			"\nL - Look and collect any items in the room"+
 			"\nI - Show inventory of items collected"+
-			"\nD - Drink coffee made from items in inventory";
+			"\nD - Drink coffee made from items in inventory\n";
 
 		default:
 			return "What?";
