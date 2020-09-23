@@ -210,6 +210,14 @@ public class CoffeeMakerQuestImpl implements CoffeeMakerQuest {
 					return r + "\nYou drink the air, as you have no coffee, sugar, or cream.\nThe air is invigorating, but not invigorating enough. You cannot study.\nYou lose!\n";
 				}
 			}
+
+		case 'h':
+			return "N - Go north"+
+			"\nS - Go south"+
+			"\nL - Look and collect any items in the room"+
+			"\nI - Show inventory of items collected"+
+			"\nD - Drink coffee made from items in inventory";
+
 		default:
 			return "What?";
 		
