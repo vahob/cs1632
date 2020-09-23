@@ -229,17 +229,17 @@ public class CoffeeMakerQuestImpl implements CoffeeMakerQuest {
 	private String drinkWithPartialInventory() {
 		// TODO Auto-generated method stub
 		if(player.checkCoffee() && player.checkCream() && !player.checkSugar())
-			return "Without sugar, the coffee is too bitter. You cannot study.\nYou lose!";
+			return "Without sugar, the coffee is too bitter. You cannot study.\nYou lose!\n";
 		if(player.checkCream() && player.checkSugar() && !player.checkCoffee())
-			return "You drink the sweetened cream, but without caffeine you cannot study.\nYou lose!";
+			return "You drink the sweetened cream, but without caffeine you cannot study.\nYou lose!\n";
 		if(player.checkCoffee() && player.checkSugar() && !player.checkCream())
-			return "Without cream, you get an ulcer and cannot study.\nYou lose!";
+			return "Without cream, you get an ulcer and cannot study.\nYou lose!\n";
 		if(player.checkCream() && !player.checkCoffee() && !player.checkSugar())
-			return "You drink the cream, but without caffeine, you cannot study.\nYou lose!";
+			return "You drink the cream, but without caffeine, you cannot study.\nYou lose!\n";
 		if(player.checkCoffee() && !player.checkCream() && !player.checkSugar())
-			return "Without cream, you get an ulcer and cannot study.\nYou lose!";
+			return "Without cream, you get an ulcer and cannot study.\nYou lose!\n";
 		if(player.checkSugar() && !player.checkCoffee() && !player.checkCream())
-			return "You eat the sugar, but without caffeine, you cannot study.\nYou lose!";
+			return "You eat the sugar, but without caffeine, you cannot study.\nYou lose!\n";
 			
 		return "";
 	}
