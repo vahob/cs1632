@@ -11,7 +11,7 @@ public class Room {
 		this.adjective = adjective;
 		this.item = item;
 		this.northDoor = null;
-		this.southDoor = null;
+		this.southDoor = null; 
 	}
 	
 	public void setNorthDoor(String door) {

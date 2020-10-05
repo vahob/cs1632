@@ -300,9 +300,45 @@ public class CoffeeMakerQuestTest {
 		Mockito.when(player.checkCoffee()).thenReturn(true);
 		Mockito.when(player.checkCream()).thenReturn(true);
 		Mockito.when(player.checkSugar()).thenReturn(false);
-		String ret = "You have a cup of delicious coffee.\nYou have some fresh cream.\nYOU HAVE NO SUGAR!\n\nWithout sugar, the coffee is too bitter. You cannot study.\nYou lose!";
+		String ret = "You have a cup of delicious coffee.\nYou have some fresh cream.\nYOU HAVE NO SUGAR!\n\nWithout sugar, the coffee is too bitter. You cannot study.\nYou lose!\n";
 		Assert.assertEquals(cmq.processCommand("D"), ret);
 		Assert.assertTrue(cmq.isGameOver());
 	}
+	
+	/**
+	 * Test case for String processCommand("l").
+	 * Preconditions: room1 ~ room6 have been added to cmq.
+	 *                cmq.setCurrentRoom(room1) has been called.
+	 * Execution steps: Call cmq.processCommand("l").
+	 * Postconditions: Return value is "There might be something here...\nYou found some creamy cream!\n".
+	 *                 player.addItem(Item.CREAM) is called.
+	 */
+	@Test
+	public void testProcessCommandLCoffee() {
+		// TODO
+		cmq.setCurrentRoom(room3);
+		String ret = "There might be something here...\nYou found some caffeinated coffee!\n";
+		Assert.assertEquals(cmq.processCommand("l"), ret);
+		Mockito.verify(player, Mockito.times(1)).addItem(Item.COFFEE);
+		
+	}
+	@Test
+	public void testProcessCommandDLoseWithPartialInventory2() {
+		Mockito.when(player.getInventoryString()).thenReturn("YOU HAVE NO COFFEE!\n" + 
+				"You have some fresh cream.\n" + 
+				"YOU HAVE NO SUGAR!\n");
+		Mockito.when(player.checkCoffee()).thenReturn(false);
+		Mockito.when(player.checkCream()).thenReturn(true);
+		Mockito.when(player.checkSugar()).thenReturn(false);
+		String ret = "YOU HAVE NO COFFEE!\n" + 
+				"You have some fresh cream.\n" + 
+				"YOU HAVE NO SUGAR!\n" + 
+				"\n" + 
+				"You drink the cream, but without caffeine, you cannot study.\n" + 
+				"You lose!\n";
+		Assert.assertEquals(cmq.processCommand("D"), ret);
+		Assert.assertTrue(cmq.isGameOver());
+	}
+	
 	
 }
