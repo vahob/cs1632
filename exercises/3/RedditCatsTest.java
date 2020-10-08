@@ -62,5 +62,40 @@ public class RedditCatsTest {
     //  The rules box is located in the bottom right corner
     assertThat(driver.findElement(By.xpath("//div[@id=\'SHORTCUT_FOCUSABLE_DIV\']/div[2]/div/div/div/div[2]/div[3]/div[2]/div/div[5]/div/div[2]/div[3]/div/div[2]/div")).getText(), is("No NSFW, animal abuse, or cruelty"));
   }
+  @Test
+  public void fUNRULES11ITEMS() {
+    driver.get("https://www.reddit.com/r/cats/");
+    driver.manage().window().setSize(new Dimension(981, 990));
+    driver.findElement(By.cssSelector(".\\_3I4Wpl_rl6oTm02aWPZayD")).click();
+    {
+      WebElement element = driver.findElement(By.cssSelector(".\\_2RkQc9Gtsq3cPQNZLYv4zc"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element).perform();
+    }
+    // 11th element present
+    {
+      List<WebElement> elements = driver.findElements(By.xpath("//div[@id=\'SHORTCUT_FOCUSABLE_DIV\']/div[2]/div/div/div/div[2]/div[3]/div[2]/div/div[5]/div/div[2]/div[11]/div/div/div"));
+      assert(elements.size() > 0);
+    }
+    // 12th element not present
+    {
+      List<WebElement> elements = driver.findElements(By.xpath("//div[@id=\'SHORTCUT_FOCUSABLE_DIV\']/div[2]/div/div/div/div[2]/div[3]/div[2]/div/div[5]/div/div[2]/div[12]/div/div/div"));
+      assert(elements.size() == 0);
+    }
+  }
+  @Test
+  public void fUNSIGNUPLINK() {
+    driver.get("https://www.reddit.com/r/cats/");
+    driver.manage().window().setSize(new Dimension(972, 990));
+    driver.findElement(By.cssSelector(".\\_3I4Wpl_rl6oTm02aWPZayD")).click();
+    // variable for sign up button
+    {
+      WebElement element = driver.findElement(By.xpath("//a[contains(@href, \'https://www.reddit.com/register/?dest=https%3A%2F%2Fwww.reddit.com%2Fr%2Fcats%2F\')]"));
+      String attribute = element.getAttribute("href");
+      vars.put("signUp", attribute);
+    }
+    // link should be the same
+    assertEquals(vars.get("signUp").toString(), "https://www.reddit.com/register/?dest=https%3A%2F%2Fwww.reddit.com%2Fr%2Fcats%2F");
+  }
   
 }
