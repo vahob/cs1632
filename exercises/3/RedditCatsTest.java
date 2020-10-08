@@ -97,5 +97,22 @@ public class RedditCatsTest {
     // link should be the same
     assertEquals(vars.get("signUp").toString(), "https://www.reddit.com/register/?dest=https%3A%2F%2Fwww.reddit.com%2Fr%2Fcats%2F");
   }
+
+  @Test
+  public void fUNSEARCHSMELLYCAT() {
+    driver.get("https://www.reddit.com/r/cats/");
+    driver.manage().window().setSize(new Dimension(974, 990));
+    driver.findElement(By.cssSelector(".\\_3I4Wpl_rl6oTm02aWPZayD")).click();
+    {
+      WebElement element = driver.findElement(By.cssSelector(".\\_2RkQc9Gtsq3cPQNZLYv4zc"));
+      Actions builder = new Actions(driver);
+      builder.moveToElement(element).perform();
+    }
+    driver.findElement(By.id("header-search-bar")).click();
+    driver.findElement(By.id("header-search-bar")).sendKeys("smelly cat");
+    driver.findElement(By.id("header-search-bar")).sendKeys(Keys.ENTER);
+    // list of results will display the search term "smelly cat" at the top above "Search results"
+    assertThat(driver.findElement(By.cssSelector(".\\_3j9XjJayuKq7dJ8huVnCuS")).getText(), is("smelly cat"));
+  }
   
 }
