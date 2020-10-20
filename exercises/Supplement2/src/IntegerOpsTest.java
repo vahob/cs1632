@@ -1,6 +1,9 @@
 import com.pholser.junit.quickcheck.From;
 import com.pholser.junit.quickcheck.Property;
 import com.pholser.junit.quickcheck.runner.JUnitQuickcheck;
+
+import junit.framework.Assert;
+
 import org.junit.runner.RunWith;
 
 import static org.junit.Assert.*;
@@ -19,6 +22,10 @@ public class IntegerOpsTest {
 	public void testAdd(int x, int y) {
 		// System.out.println("testAdd x='" + x + "', y='" + y + "'");
 		// TODO: Fill in.
+		if(x >=0 &&  y >=0) {
+			assertTrue(IntegerOps.add(x, y) >= 0);
+		}
+		
 	}
 	
 	/**
@@ -32,6 +39,8 @@ public class IntegerOpsTest {
 	public void testSubtract(int x, int y) {
 		// System.out.println("testSubtract x='" + x + "', y='" + y + "'");
 		// TODO: Fill in.
+		if(x >= y)
+			assertTrue(IntegerOps.subtract(x, y) >= 0);
 	}
 
 }
