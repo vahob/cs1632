@@ -61,15 +61,16 @@ public class DrunkCarnivalShooterImpl implements DrunkCarnivalShooter {
 	 * @return the round string
 	 */
 	public String getRoundString() {
-		String ret = "Round #" + roundNum + ":";
+		StringBuffer ret = new StringBuffer();
+		ret.append("Round #" + roundNum + ":");
 		for (boolean standing : targets) {
 			if (standing) {
-				ret += "  ||  ";
+				ret.append("  ||  ");
 			} else {
-				ret += "      ";
+				ret.append("      ");
 			}
 		}
-		return ret;
+		return ret.toString();
 	}
 
 	/**
