@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>MonkeySim</name>
+	<name>SlowLifeGUI</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -16,7 +16,7 @@
 	</natures>
 	<filteredResources>
 		<filter>
-			<id>1604106261537</id>
+			<id>1604178967014</id>
 			<name></name>
 			<type>30</type>
 			<matcher>
