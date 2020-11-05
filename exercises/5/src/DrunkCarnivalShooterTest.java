@@ -1,6 +1,9 @@
+import static org.junit.Assert.assertEquals;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import gov.nasa.jpf.vm.Verify;
 
 /**
  * Code by @author Wonsun Ahn
@@ -31,11 +34,13 @@ public class DrunkCarnivalShooterTest {
 		 * Verify API, look at:
 		 * https://github.com/javapathfinder/jpf-core/wiki/Verify-API-of-JPF
 		 */
-
+		
 		// Create the game
 		shooter = DrunkCarnivalShooter.createInstance();
 		// Set up the targets in the game to reflect the targets array
 		for (int i = 0; i < 4; i++) {
+			targetChoice = Verify.getInt(0,3);
+			targets[targetChoice] = Verify.getBoolean();
 			if (targets[i] == false) {
 				shooter.takeDownTarget(i);
 			}
@@ -88,6 +93,15 @@ public class DrunkCarnivalShooterTest {
 		 * 
 		 * PLEASE COMMENT OUT when you are done implementing.
 		 */
-		System.out.println(failString);
+		StringBuilder builder = new StringBuilder();
+		shooter.shoot(targetChoice, builder);
+		int count=0;
+		for(int i=0; i<4; i++)
+		{
+			if(shooter.isTargetStanding(i))
+				count++;
+		}
+		assertEquals(count, shooter.getRemainingTargetNum());
+		//System.out.println(failString);
 	}
 }

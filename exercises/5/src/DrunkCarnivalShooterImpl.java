@@ -7,14 +7,15 @@
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
+import gov.nasa.jpf.vm.Verify;
+import gov.nasa.jpf.annotation.FilterField;
 
 public class DrunkCarnivalShooterImpl implements DrunkCarnivalShooter {
 
 	private ArrayList<Boolean> targets;
 	private int remainingTargetNum;
 
-	private int roundNum;
-
+	@FilterField private int roundNum;
 	/**
 	 * Constructor. Creates 4 targets for the player to shoot. Not a particularly
 	 * test-friendly method as it creates the random number generator internally
@@ -43,6 +44,9 @@ public class DrunkCarnivalShooterImpl implements DrunkCarnivalShooter {
 		Random rand = new Random();
 		int offsetNum = rand.nextInt(3) - 1;
 		int fuzzedT = t + offsetNum;
+		//while(fuzzedT >=0 && fuzzedT < 4)
+		if(fuzzedT <0) fuzzedT=0;
+		if(fuzzedT >= 4) fuzzedT=3;
 		if (offsetNum > 0) {
 			builder.append("You aimed at target #" + t
 					+ " but the Force pulls your bullet to the right.\n");
@@ -90,7 +94,7 @@ public class DrunkCarnivalShooterImpl implements DrunkCarnivalShooter {
 		if (takeDownTarget(newT)) {
 			builder.append("You hit target #" + newT
 					+ "! \"The Force is strong with this one.\", Darth opines.\n");
-			remainingTargetNum--;
+			//remainingTargetNum--;
 			return true;
 		} else {
 			builder.append("You miss! \"Do or do not. There is no try.\", Yoda chides.\n");
@@ -152,7 +156,12 @@ public class DrunkCarnivalShooterImpl implements DrunkCarnivalShooter {
 		while (true) {
 			System.out.println(shooter.getRoundString());
 			System.out.println("Choose your target (0-3): ");
-			int t = scanner.nextInt();
+			//int t = scanner.nextInt();
+			int t;
+			if(args.length > 0 && args[0].contentEquals("test"))
+				t = Verify.getInt(0,3);
+			else
+				t = scanner.nextInt();
 
 			// Shoot the target
 			StringBuilder builder = new StringBuilder();
