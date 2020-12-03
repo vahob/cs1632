@@ -96,6 +96,26 @@ public class BeanCounterLogicTest {
 		 * 
 		 * PLEASE REMOVE when you are done implementing.
 		 */
+		logic.reset(beans);
+		if(beanCount > 0) {
+			assertEquals(failString, logic.getRemainingBeanCount(), beanCount - 1);
+			assertEquals(failString, logic.getInFlightBeanXPos(0), 0);
+			assertEquals(failString, logic.getSlotBeanCount(0), 0);
+			for(int i = 1; i < slotCount; i++) {
+				assertEquals(failString, logic.getInFlightBeanXPos(i), BeanCounterLogic.NO_BEAN_IN_YPOS);
+				assertEquals(failString, logic.getSlotBeanCount(i), 0);
+			}
+
+		}
+		if(beanCount == 0)
+		{
+			assertEquals(failString, logic.getRemainingBeanCount(), 0);			
+			for(int i = 0; i < slotCount; i++) {
+				assertEquals(failString, logic.getInFlightBeanXPos(i), BeanCounterLogic.NO_BEAN_IN_YPOS);
+				assertEquals(failString, logic.getSlotBeanCount(i), 0);
+			}
+		}
+		//System.out.println(failString);
 
 		
 	}
@@ -111,6 +131,19 @@ public class BeanCounterLogicTest {
 	@Test
 	public void testAdvanceStepCoordinates() {
 		// TODO: Implement
+		ogic.reset(beans);
+		while(logic.advanceStep()) {
+
+			for(int i=0; i < slotCount; i++)
+			{
+				if(logic.getInFlightBeanXPos(i) != BeanCounterLogic.NO_BEAN_IN_YPOS)
+				{
+					assertTrue(failString, logic.getInFlightBeanXPos(i) >= 0);
+					assertTrue(failString, logic.getInFlightBeanXPos(i) <= i);
+				}
+			}
+
+		}
 		
 	}
 
