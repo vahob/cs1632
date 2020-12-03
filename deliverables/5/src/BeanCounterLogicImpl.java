@@ -119,7 +119,15 @@ public class BeanCounterLogicImpl implements BeanCounterLogic {
 	 */
 	public double getAverageSlotBeanCount() {
 		// TODO: Implement
-		
+		int sumOfSlotCounts = 0;
+		int sumOfAllSlotNums = 0;
+		for (int i = 0; i < slotBean.size(); i++) {
+			int count = getSlotBeanCount(i);
+			sumOfAllSlotNums += (i * count);
+			sumOfSlotCounts += count;
+		}
+		if (sumOfSlotCounts > 0)
+			return sumOfAllSlotNums / (double) sumOfSlotCounts;
 		return 0;
 	}
 
@@ -131,6 +139,35 @@ public class BeanCounterLogicImpl implements BeanCounterLogic {
 	 */
 	public void upperHalf() {
 		// TODO: Implement
+		int sumOfSlotCounts = getSumOfSlotCount()-1;
+		int slot = 0;
+		int beanNumber = getSlotBeanCount(slot)-1;
+		int deleted = 0;
+		//System.out.println("sumOfCounts: " + sumOfSlotCounts);
+		while(deleted < Math.floor(sumOfSlotCounts / 2) ){
+			/*if (slotBean.get(slot).isEmpty()) {
+				slot++;
+				beanNumber = 0;
+				System.out.println("slot empty: slot: " + slot + " beanN: " + beanNumber);
+			}*/
+			
+			//System.out.println("i: " + deleted + " count: " + getSlotBeanCount(slot)+" beanNumber: " + beanNumber);
+			if(beanNumber < getSlotBeanCount(slot) && beanNumber >= 0 && getSlotBeanCount(slot) > 0 ) {
+				//System.out.println("slot not empty: slot: " + slot + " beanN: " + beanNumber);
+				slotBean.get(slot).remove(beanNumber--);
+				deleted++;
+			}
+			else
+			{
+				//System.out.println("slot empty: slot: " + slot + " beanN: " + beanNumber);
+				if(slot < getSlotCount()-1) slot++;
+				if(getSlotBeanCount(slot) > 0) beanNumber = getSlotBeanCount(slot)-1;
+				else beanNumber = 0;
+				
+			}
+			
+		}
+
 	}
 
 	public int getSumOfSlotCount() {
@@ -149,7 +186,37 @@ public class BeanCounterLogicImpl implements BeanCounterLogic {
 	 * will be remaining.
 	 */
 	public void lowerHalf() {
-		return;
+		// TODO: Implement
+		int sumOfSlotCounts = getSumOfSlotCount()-1;
+		if(sumOfSlotCounts < 0) return;
+		//if(getSlotCount() == 1 && getSumOfSlotCount() == 1) return;
+		int slot = getSlotCount()-1;
+		int beanNumber = getSlotBeanCount(slot)-1;
+		int deleted=0;
+		//System.out.println("sumOfCounts: " + sumOfSlotCounts);
+		while(deleted < Math.floor(sumOfSlotCounts / 2) ){
+			/*if (slotBean.get(slot).isEmpty()) {
+				slot++;
+				beanNumber = 0;
+				System.out.println("slot empty: slot: " + slot + " beanN: " + beanNumber);
+			}*/
+			
+			//System.out.println("i: " + deleted + " count: " + getSlotBeanCount(slot)+" beanNumber: " + beanNumber);
+			if(beanNumber < getSlotBeanCount(slot) && beanNumber >= 0 && getSlotBeanCount(slot) > 0 ) {
+				//System.out.println("slot not empty: slot: " + slot + " beanN: " + beanNumber);
+				slotBean.get(slot).remove(beanNumber--);
+				deleted++;
+			}
+			else
+			{
+				//System.out.println("slot empty: slot: " + slot + " beanN: " + beanNumber);
+				if(slot >= 0) slot--;
+				if(getSlotBeanCount(slot) > 0) beanNumber = getSlotBeanCount(slot)-1;
+				else beanNumber = 0;
+				
+			}
+			
+		}
 	}
 
 	/**
