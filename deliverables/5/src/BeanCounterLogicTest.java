@@ -96,6 +96,7 @@ public class BeanCounterLogicTest {
 		 * 
 		 * PLEASE REMOVE when you are done implementing.
 		 */
+
 		logic.reset(beans);
 		if(beanCount > 0) {
 			assertEquals(failString, logic.getRemainingBeanCount(), beanCount - 1);
@@ -116,8 +117,6 @@ public class BeanCounterLogicTest {
 			}
 		}
 		//System.out.println(failString);
-
-		
 	}
 
 	/**
@@ -131,7 +130,7 @@ public class BeanCounterLogicTest {
 	@Test
 	public void testAdvanceStepCoordinates() {
 		// TODO: Implement
-		ogic.reset(beans);
+		logic.reset(beans);
 		while(logic.advanceStep()) {
 
 			for(int i=0; i < slotCount; i++)
@@ -144,7 +143,6 @@ public class BeanCounterLogicTest {
 			}
 
 		}
-		
 	}
 
 	/**
